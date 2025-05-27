@@ -6,10 +6,7 @@ function Home() {
   return (
     <>
       <HeaderNav />
-
-      <div>
-        <h1>Hello world</h1>
-      </div>
+      <div></div>
     </>
   );
 }

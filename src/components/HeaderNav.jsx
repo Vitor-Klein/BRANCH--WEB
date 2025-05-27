@@ -1,21 +1,31 @@
-import { Link } from 'react-router-dom';
-//import './HeaderNav.css'; tem q fazer o css
+import { Link } from "react-router-dom";
+import "./HeaderNav.css";
 
 function HeaderNav() {
+  const menuItems = [
+    { to: "/", label: "Início" },
+    { to: "/estoque", label: "Estoque" },
+    { to: "/doacoes", label: "Doações" },
+    { to: "/retiradas", label: "Retiradas" },
+    { to: "/beneficiarios", label: "Beneficiários" },
+    { to: "/relatorios", label: "Relatórios" },
+  ];
+
   return (
-    <>
-      <header>
-        <h1>SANEM</h1>
-      </header>
+    <header className="header-nav">
+      <h1>SANEM</h1>
       <nav>
-        <Link to="/" className="redirects-button">Início</Link><br />
-        <Link to="/estoque" className="redirects-button">Estoque</Link><br />
-        <Link to="/doacoes" className="redirects-button">Doações</Link><br />
-        <Link to="/retiradas" className="redirects-button">Retiradas</Link><br />
-        <Link to="/beneficiarios" className="redirects-button">Beneficiários</Link><br />
-        <Link to="/relatorios" className="redirects-button">Relatórios</Link><br />
+        <ul className="nav-links">
+          {menuItems.map((item) => (
+            <li key={item.to}>
+              <Link to={item.to} className="redirects-button">
+                {item.label}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </nav>
-    </>
+    </header>
   );
 }
 
