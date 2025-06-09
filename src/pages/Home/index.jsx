@@ -1,12 +1,14 @@
 import { useState } from "react";
-import HeaderNav from "../../components/HeaderNav";
+import Sidebar from "../../components/Sidebar";
 import "./style.css";
 
 function Home() {
   return (
     <>
-      <HeaderNav />
-      <div></div>
+      <div className="container">
+        <Sidebar />
+        <img src="./backgound-image.png" alt="backgound-image" />
+      </div>
     </>
   );
 }

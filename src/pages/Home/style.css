@@ -1,0 +1,21 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: 'Inter', sans-serif;
+  background: #c2c0c0;
+}
+
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+}
+
+img {
+  height: 100vh;
+  width: 80vw;
+}
