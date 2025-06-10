@@ -115,11 +115,10 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 0px;
   font-size: 14px;
   box-shadow: 0 2px 5px rgba(243, 243, 243, 0.1);
   color: #2c0a00;
-
 }
 
 .item-card h3 {

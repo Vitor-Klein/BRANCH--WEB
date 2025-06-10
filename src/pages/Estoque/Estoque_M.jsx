@@ -40,7 +40,6 @@ const Estoque = () => {
       <Sidebar />
       <main className="estoque-main">
         <div className="estoque-header">
-          <h1>Estoque</h1>
           <div className="estoque-actions">
             <input
               type="text"
@@ -89,9 +88,9 @@ const Estoque = () => {
                 <p>
                   <strong>Quantidade:</strong> {item.quantidade}
                 </p>
-                <p>
+                {/* <p>
                   <strong>Categoria:</strong> {item.categoria}
-                </p>
+                </p> */}
               </div>
             ))}
           </div>

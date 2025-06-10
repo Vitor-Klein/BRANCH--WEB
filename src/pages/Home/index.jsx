@@ -7,7 +7,8 @@ function Home() {
     <>
       <div className="container">
         <Sidebar />
-        <img src="./backgound-image.png" alt="backgound-image" />
+        <img src="./background-image.png" alt="backgound-image" />
+        <h1>Bem Vindos a SANEM!</h1>
       </div>
     </>
   );
