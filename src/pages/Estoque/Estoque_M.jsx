@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Sidebar from "../../components/Sidebar";
 import api from "../../services/api";
 import "./style.css";
@@ -10,25 +12,40 @@ const Estoque = () => {
   const [modelo, setModelo] = useState("");
   const [categoria, setCategoria] = useState("");
 
-  useEffect(() => {
-    const fetchItens = async () => {
-      try {
-        const response = await api.get("/item");
-        setItens(response.data);
-      } catch (error) {
-        console.error("Erro ao buscar itens:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const navigate = useNavigate();
 
+  const fetchItens = async () => {
+    try {
+      setLoading(true);
+      const response = await api.get("/item");
+      setItens(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar itens:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
     fetchItens();
   }, []);
+
+  const handleDelete = async (id) => {
+    if (!window.confirm("Tem certeza que deseja excluir este item?")) return;
+
+    try {
+      await api.delete(`/item/${id}`);
+      await fetchItens(); // 🔁 atualiza a lista após a exclusão
+    } catch (error) {
+      console.error("Erro ao deletar item:", error);
+      alert("Não foi possível excluir o item.");
+    }
+  };
 
   const itensFiltrados = itens.filter((item) => {
     const termo = search.toLowerCase();
     const tipoMatch = item.tipo.toLowerCase().includes(termo);
-    const categoriaMatch = item.categoria?.toLowerCase().includes(termo); // se tiver campo categoria
+    const categoriaMatch = item.categoria?.toLowerCase().includes(termo);
     const modeloFiltro = modelo ? item.tipo === modelo : true;
     const categoriaFiltro = categoria ? item.categoria === categoria : true;
 
@@ -70,7 +87,12 @@ const Estoque = () => {
               <option value="unissex">Unissex</option>
             </select>
 
-            <button className="btn-registrar">+ Registrar peça</button>
+            <button
+              className="btn-registrar"
+              onClick={() => navigate("/criarItem")}
+            >
+              + Registrar peça
+            </button>
           </div>
         </div>
 
@@ -79,8 +101,16 @@ const Estoque = () => {
         ) : (
           <div className="grid">
             {itensFiltrados.map((item) => (
-              <div key={item.idItem} className="item-card">
-                <button className="edit">✏️</button>
+              <div key={item.iditem} className="item-card">
+                <button
+                  className="btn-excluir"
+                  onClick={() => {
+                    console.log("Item:", item);
+                    handleDelete(item.iditem);
+                  }}
+                >
+                  ❌
+                </button>
                 <h3>{item.tipo}</h3>
                 <p>
                   <strong>Tamanho:</strong> {item.tamanho}
@@ -88,9 +118,6 @@ const Estoque = () => {
                 <p>
                   <strong>Quantidade:</strong> {item.quantidade}
                 </p>
-                {/* <p>
-                  <strong>Categoria:</strong> {item.categoria}
-                </p> */}
               </div>
             ))}
           </div>
